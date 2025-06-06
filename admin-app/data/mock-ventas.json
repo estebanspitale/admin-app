@@ -1,0 +1,5 @@
+[
+    { "id": 1, "cliente": "Juan Pérez", "producto": "Producto A", "fecha": "2025-06-01" },
+    { "id": 2, "cliente": "Ana Gómez", "producto": "Producto B", "fecha": "2025-06-02" },
+    { "id": 3, "cliente": "Carlos López", "producto": "Producto C", "fecha": "2025-06-03" }
+]

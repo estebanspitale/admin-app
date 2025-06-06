@@ -1,0 +1,130 @@
+/* Reset básico */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* Header */
+header {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  padding: var(--spacing-md);
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.5rem;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Sidebar */
+#sidebar {
+  position: fixed;
+  top: 60px; /* altura del header */
+  left: 0;
+  width: 220px;
+  height: calc(100vh - 60px);
+  background-color: var(--color-secondary);
+  padding-top: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+}
+
+#sidebar nav a {
+  color: var(--color-white);
+  padding: var(--spacing-md);
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  font-weight: 600;
+}
+
+#sidebar nav a:hover {
+  background-color: #495057;
+}
+
+/* Main content */
+main {
+  margin-left: 220px;
+  margin-top: 180px;
+  padding: var(--spacing-lg) var(--spacing-lg);
+  min-height: calc(100vh - 60px);
+}
+
+/* Tarjetas (cards) */
+.cards {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.card {
+  background-color: var(--color-white);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: 8px;
+  box-shadow: var(--shadow-light);
+  flex: 1;
+  text-align: center;
+  margin: 10px;
+}
+
+.card h3 {
+  margin-bottom: var(--spacing-sm);
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.card p {
+  font-size: 1.75rem;
+  margin: 0;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+/* Tabla */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--color-white);
+  border-radius: 8px;
+  box-shadow: var(--shadow-light);
+  overflow: hidden;
+}
+
+th, td {
+  padding: var(--spacing-md);
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  #sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    top: 0;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  main {
+    margin-left: 0;
+    margin-top: 0;
+  }
+
+  .cards {
+    flex-direction: column;
+  }
+}

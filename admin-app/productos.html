@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Productos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Productos</h1>
+    <ul id="productos-lista"></ul>
+
+    <script>
+        fetch('data/mock-productos.json')
+            .then(response => response.json())
+            .then(productos => {
+                const lista = document.getElementById('productos-lista');
+                productos.forEach(producto => {
+                    const item = document.createElement('li');
+                    item.textContent = `${producto.nombre} - $${producto.precio}`;
+                    lista.appendChild(item);
+                });
+            });
+    </script>
+</body>
+</html>

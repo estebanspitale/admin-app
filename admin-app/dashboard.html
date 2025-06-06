@@ -2,42 +2,68 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dashboard</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="styles/styles.css" />
+  <link rel="stylesheet" href="styles/variables.css" />
 </head>
 <body>
-  <h1>Dashboard</h1>
 
-  <button id="logoutBtn">Cerrar sesión</button>
+  <header>
+    <h1>Mi Admin Dashboard</h1>
+    <button id="logoutBtn">Cerrar sesión</button>
+  </header>
 
-  <div id="totales">
-    <h2>Resumen general</h2>
-    <p>Ventas del día: $<span id="ventasDia">0</span></p>
-    <p>Productos en stock: <span id="stockDisponible">0</span></p>
-  </div>
+  <aside id="sidebar">
+    <nav>
+      <a href="clientes.html">Clientes</a>
+      <a href="productos.html">Productos</a>
+      <a href="ventas.html">Ventas</a>
+    </nav>
+  </aside>
 
-  <div id="filtros">
-    <label for="fechaFiltro">Filtrar ventas por fecha:</label>
-    <input type="date" id="fechaFiltro" />
-  </div>
+  <main>
+    <section id="totales" class="card">
+      <h2>Resumen general</h2>
+      <p>Ventas del día: $<span id="ventasDia">0</span></p>
+      <p>Productos en stock: <span id="stockDisponible">0</span></p>
+    </section>
 
-  <div id="ventasPorProducto">
-    <h2>Ventas por producto</h2>
-    <ul id="listaVentasProducto"></ul>
-  </div>
+    <section id="filtros" class="card">
+      <label for="fechaFiltro">Filtrar ventas por fecha:</label>
+      <input type="date" id="fechaFiltro" />
+    </section>
 
-  <div id="mejoresClientes">
-    <h2>Mejores clientes</h2>
-    <ul id="listaClientesTop"></ul>
-  </div>
+    <section id="ventasPorProducto" class="card">
+      <h2>Ventas por producto</h2>
+      <ul id="listaVentasProducto"></ul>
+    </section>
 
-  <nav>
-    <a href="clientes.html">Clientes</a> |
-    <a href="productos.html">Productos</a> |
-    <a href="ventas.html">Ventas</a>
-  </nav>
+    <section id="mejoresClientes" class="card">
+      <h2>Mejores clientes</h2>
+      <ul id="listaClientesTop"></ul>
+    </section>
+
+    <div class="cards">
+    <section id="totales" class="card">
+      ...
+    </section>
+    <section id="filtros" class="card">
+      ...
+    </section>
+    </div>
+
+    <div class="cards">
+        <section id="ventasPorProducto" class="card">
+        ...
+        </section>
+        <section id="mejoresClientes" class="card">
+        ...
+        </section>
+    </div>
+  </main>
 
   <script type="module" src="js/dashboard.js"></script>
+
 </body>
 </html>

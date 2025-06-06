@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Clientes</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Clientes</h1>
+    <ul id="clientes-lista"></ul>
+
+    <script>
+        fetch('data/mock-clientes.json')
+            .then(response => response.json())
+            .then(clientes => {
+                const lista = document.getElementById('clientes-lista');
+                clientes.forEach(cliente => {
+                    const item = document.createElement('li');
+                    item.textContent = `${cliente.nombre} - ${cliente.email}`;
+                    lista.appendChild(item);
+                });
+            });
+    </script>
+</body>
+</html>
