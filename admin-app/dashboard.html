@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <h1>Dashboard</h1>
+
+  <button id="logoutBtn">Cerrar sesión</button>
+
+  <div id="totales">
+    <h2>Resumen general</h2>
+    <p>Ventas del día: $<span id="ventasDia">0</span></p>
+    <p>Productos en stock: <span id="stockDisponible">0</span></p>
+  </div>
+
+  <div id="filtros">
+    <label for="fechaFiltro">Filtrar ventas por fecha:</label>
+    <input type="date" id="fechaFiltro" />
+  </div>
+
+  <div id="ventasPorProducto">
+    <h2>Ventas por producto</h2>
+    <ul id="listaVentasProducto"></ul>
+  </div>
+
+  <div id="mejoresClientes">
+    <h2>Mejores clientes</h2>
+    <ul id="listaClientesTop"></ul>
+  </div>
+
+  <nav>
+    <a href="clientes.html">Clientes</a> |
+    <a href="productos.html">Productos</a> |
+    <a href="ventas.html">Ventas</a>
+  </nav>
+
+  <script type="module" src="js/dashboard.js"></script>
+</body>
+</html>
