@@ -16,20 +16,36 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// Formulario de registro
-const registerForm = document.getElementById("registerForm");
-
-registerForm.addEventListener("submit", async (e) => {
+document.getElementById("registerForm").addEventListener("submit", async (e) => {
   e.preventDefault();
-  const email = registerForm.email.value;
-  const password = registerForm.password.value;
+
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
+  const errorDiv = document.getElementById("error-message");
+  const successDiv = document.getElementById("success-message");
+
+  errorDiv.textContent = "";
+  successDiv.textContent = "";
+
+  if (!email || !password) {
+    errorDiv.textContent = "Completá todos los campos.";
+    return;
+  }
 
   try {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    alert("Usuario registrado con éxito");
-    // Redirigir o mostrar pantalla de bienvenida
-    window.location.href = "login.html";
+    await createUserWithEmailAndPassword(auth, email, password);
+    successDiv.textContent = "Registro exitoso. Ya podés iniciar sesión.";
+    // Opcional: Redirigir automáticamente
+    // window.location.href = "login.html";
   } catch (error) {
-    alert("Error: " + error.message);
+    if (error.code === "auth/email-already-in-use") {
+      errorDiv.textContent = "Este email ya está registrado.";
+    } else if (error.code === "auth/invalid-email") {
+      errorDiv.textContent = "Email no válido.";
+    } else if (error.code === "auth/weak-password") {
+      errorDiv.textContent = "La contraseña es muy débil.";
+    } else {
+      errorDiv.textContent = "Error: " + error.message;
+    }
   }
 });

@@ -2,12 +2,36 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="refresh" content="0; url=dashboard.html" />
-  <title>Redirigiendo...</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Inicio</title>
 </head>
 <body>
-  <p>Si no sos redirigido automáticamente, <a href="dashboard.html">hacé clic aquí</a>.</p>
+  <h1>Bienvenido</h1>
+  <p>Redirigiendo...</p>
+
+  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAFxq-9Lofrt2GHHZQpS_Gg9kb8dvpPzio",
+    authDomain: "admin-app-6426c.firebaseapp.com",
+    projectId: "admin-app-6426c",
+    storageBucket: "admin-app-6426c.appspot.com",
+    messagingSenderId: "52366603200",
+    appId: "1:52366603200:web:cae73849a83893838d4e25"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      window.location.href = "dashboard.html";
+    } else {
+      window.location.href = "login.html";
+    }
+  });
+</script>
 </body>
 </html>
-
-<script type="module" src="js/auth.js"></script>

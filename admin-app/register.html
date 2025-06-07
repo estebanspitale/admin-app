@@ -3,15 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Registro de Usuario</title>
+  <title>Registro</title>
+  <style>
+    body { font-family: Arial; max-width: 400px; margin: 50px auto; }
+    input, button { display: block; width: 100%; margin-bottom: 10px; padding: 8px; }
+    #error-message { color: red; margin-bottom: 10px; }
+    #success-message { color: green; margin-bottom: 10px; }
+  </style>
 </head>
 <body>
-  <h1>Registrarse</h1>
+  <h1>Registro</h1>
+
+  <div id="error-message"></div>
+  <div id="success-message"></div>
 
   <form id="registerForm">
-    <input type="email" name="email" placeholder="Email" required />
-    <input type="password" name="password" placeholder="Contraseña" required />
-    <button type="submit">Crear cuenta</button>
+    <input type="email" id="email" name="email" placeholder="Email" required />
+    <input type="password" id="password" name="password" placeholder="Contraseña (mín. 6 caracteres)" required minlength="6" />
+    <button type="submit">Registrarse</button>
   </form>
 
   <script type="module" src="js/register.js"></script>

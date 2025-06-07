@@ -4,20 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Iniciar Sesión</title>
-  <link rel="stylesheet" href="styles/styles.css" />
+  <style>
+    body { font-family: Arial; max-width: 400px; margin: 50px auto; }
+    input, button { display: block; width: 100%; margin-bottom: 10px; padding: 8px; }
+    #error-message { color: red; margin-bottom: 10px; }
+  </style>
 </head>
 <body>
-  <h1>Iniciar Sesión</h1>
+  <h1>Login</h1>
+
+  <div id="error-message"></div>
 
   <form id="loginForm">
-    <input type="email" name="email" placeholder="Email" required />
-    <input type="password" name="password" placeholder="Contraseña" required />
+    <input type="email" id="email" name="email" placeholder="Email" required />
+    <input type="password" id="password" name="password" placeholder="Contraseña" required minlength="6" />
     <button type="submit">Iniciar Sesión</button>
   </form>
 
-  <p>¿No tenés cuenta? <a href="register.html">Registrarse</a></p>
-
-  <!-- Script que maneja el login -->
   <script type="module" src="js/auth.js"></script>
 </body>
 </html>
