@@ -1,25 +1,54 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Ventas</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <title>Ventas</title>
+  <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
-    <h1>Ventas</h1>
-    <ul id="ventas-lista"></ul>
+  <h1>Ventas</h1>
 
-    <script>
-        fetch('data/mock-ventas.json')
-            .then(response => response.json())
-            .then(ventas => {
-                const lista = document.getElementById('ventas-lista');
-                ventas.forEach(venta => {
-                    const item = document.createElement('li');
-                    item.textContent = `Cliente: ${venta.cliente} | Producto: ${venta.producto} | Fecha: ${venta.fecha}`;
-                    lista.appendChild(item);
-                });
-            });
-    </script>
+  <form id="form-venta">
+    <h2>Registrar nueva venta</h2>
+
+    <label>Cliente existente:<br>
+      <select id="cliente-select">
+        <option value="">--Seleccionar cliente--</option>
+      </select>
+    </label><br><br>
+
+    <label>O ingresar nuevo cliente:<br>
+      <input type="text" id="nuevo-cliente" placeholder="Nombre del nuevo cliente" />
+    </label><br><br>
+
+    <label>Producto:<br>
+      <select id="producto-select">
+        <option value="">--Seleccionar producto--</option>
+      </select>
+    </label><br><br>
+
+    <p id="precio-producto">Precio: $0</p>
+
+    <label>Cantidad:<br>
+      <input type="number" id="cantidad" min="1" value="1" />
+    </label><br><br>
+
+    <button type="button" id="agregar-producto">Agregar producto</button>
+
+    <h3>Productos agregados:</h3>
+    <ul id="lista-productos-agregados"></ul>
+
+    <p><strong>Total: $<span id="total">0</span></strong></p>
+
+    <button type="button" id="registrar-venta">Registrar Venta</button>
+  </form>
+
+  <hr>
+
+  <h2>Ventas registradas</h2>
+  <input type="text" id="buscador-ventas" placeholder="Buscar por cliente o producto..." />
+  <ul id="ventas-lista"></ul>
+
+  <script type="module" src="js/ventas.js"></script>
 </body>
 </html>

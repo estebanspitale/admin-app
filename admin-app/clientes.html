@@ -1,25 +1,24 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Clientes</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <title>Clientes</title>
+  <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
-    <h1>Clientes</h1>
-    <ul id="clientes-lista"></ul>
+  <div class="container"></div>
+  <h1>Clientes</h1>
+  <input type="text" id="buscador-clientes" placeholder="Buscar por nombre o email..." />
 
-    <script>
-        fetch('data/mock-clientes.json')
-            .then(response => response.json())
-            .then(clientes => {
-                const lista = document.getElementById('clientes-lista');
-                clientes.forEach(cliente => {
-                    const item = document.createElement('li');
-                    item.textContent = `${cliente.nombre} - ${cliente.email}`;
-                    lista.appendChild(item);
-                });
-            });
-    </script>
+   <form id="form-cliente">
+    <input type="text" id="nombre" placeholder="Nombre" required />
+    <input type="email" id="email" placeholder="Email" required />
+    <button type="submit">Agregar Cliente</button>
+  </form>
+
+  <ul id="clientes-lista"></ul>
+
+  <script type="module" src="js/clientes.js"></script>
+  </div>
 </body>
 </html>

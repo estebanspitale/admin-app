@@ -1,25 +1,24 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Productos</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <title>Productos</title>
+  <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
-    <h1>Productos</h1>
-    <ul id="productos-lista"></ul>
+  <h1>Productos</h1>
 
-    <script>
-        fetch('data/mock-productos.json')
-            .then(response => response.json())
-            .then(productos => {
-                const lista = document.getElementById('productos-lista');
-                productos.forEach(producto => {
-                    const item = document.createElement('li');
-                    item.textContent = `${producto.nombre} - $${producto.precio}`;
-                    lista.appendChild(item);
-                });
-            });
-    </script>
+  <input type="text" id="buscador-productos" placeholder="Buscar por nombre" />
+
+  <form id="form-producto">
+    <input type="text" id="nombre" placeholder="Nombre" required />
+    <input type="text" id="categoria" placeholder="Categoría" required />
+    <input type="number" id="precio" placeholder="Precio" required />
+    <button type="submit">Agregar Producto</button>
+  </form>
+
+  <ul id="productos-lista"></ul>
+
+  <script type="module" src="js/productos.js"></script>
 </body>
 </html>

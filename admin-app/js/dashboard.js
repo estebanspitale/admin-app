@@ -1,6 +1,7 @@
 import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
 
+// Configuración de Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyAFxq-9Lofrt2GHHZQpS_Gg9kb8dvpPzio",
   authDomain: "admin-app-6426c.firebaseapp.com",
@@ -13,7 +14,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// Simulación de datos
+// Datos simulados
 const datos = {
   ventas: [
     { fecha: "2025-06-06", producto: "Lavandina", cliente: "Supermercado A", total: 3000 },
@@ -25,21 +26,32 @@ const datos = {
     { nombre: "Lavandina", stock: 25 },
     { nombre: "Detergente", stock: 15 },
     { nombre: "Cloro", stock: 10 }
+  ],
+  clientes: [
+    { nombre: "Supermercado A" },
+    { nombre: "Kiosco B" },
+    { nombre: "Panadería C" }
   ]
 };
 
-// Función principal
-function mostrarResumen(fecha = "2025-06-06") {
-  const ventasHoy = datos.ventas.filter(v => v.fecha === fecha);
-  const totalVentas = ventasHoy.reduce((sum, v) => sum + v.total, 0);
-  const totalStock = datos.productos.reduce((sum, p) => sum + p.stock, 0);
+// Mostrar resumen general
+function mostrarResumen(fechaDesde = null, fechaHasta = null) {
+  let ventasFiltradas = datos.ventas;
 
-  document.getElementById("ventasDia").textContent = totalVentas;
-  document.getElementById("stockDisponible").textContent = totalStock;
+  if (fechaDesde && fechaHasta) {
+    ventasFiltradas = datos.ventas.filter(v => v.fecha >= fechaDesde && v.fecha <= fechaHasta);
+  }
+
+  // Totales
+  document.getElementById("totalClientes").textContent = datos.clientes.length;
+  document.getElementById("totalProductos").textContent = datos.productos.length;
+
+  const totalVentas = ventasFiltradas.reduce((sum, v) => sum + v.total, 0);
+  document.getElementById("totalVentas").textContent = `$${totalVentas}`;
 
   // Ventas por producto
   const ventasPorProducto = {};
-  ventasHoy.forEach(v => {
+  ventasFiltradas.forEach(v => {
     ventasPorProducto[v.producto] = (ventasPorProducto[v.producto] || 0) + v.total;
   });
 
@@ -53,7 +65,7 @@ function mostrarResumen(fecha = "2025-06-06") {
 
   // Mejores clientes
   const ventasPorCliente = {};
-  datos.ventas.forEach(v => {
+  ventasFiltradas.forEach(v => {
     ventasPorCliente[v.cliente] = (ventasPorCliente[v.cliente] || 0) + v.total;
   });
 
@@ -67,10 +79,18 @@ function mostrarResumen(fecha = "2025-06-06") {
   });
 }
 
-// Filtro por fecha
-document.getElementById("fechaFiltro").addEventListener("change", e => {
-  mostrarResumen(e.target.value);
-});
+// Filtrar por fecha
+window.filtrarPorFecha = function () {
+  const desde = document.getElementById("fechaDesde").value;
+  const hasta = document.getElementById("fechaHasta").value;
+
+  if (!desde || !hasta) {
+    alert("Seleccioná ambas fechas.");
+    return;
+  }
+
+  mostrarResumen(desde, hasta);
+};
 
 // Cerrar sesión
 document.getElementById("logoutBtn").addEventListener("click", () => {
@@ -83,5 +103,25 @@ document.getElementById("logoutBtn").addEventListener("click", () => {
     });
 });
 
-// Mostrar al cargar
-mostrarResumen();
+// Mostrar cotización del dólar (usando API de Bluelytics sin CORS)
+async function mostrarCotizacionDolar() {
+  try {
+    const res = await fetch("https://api.bluelytics.com.ar/v2/latest");
+    const data = await res.json();
+
+    document.getElementById("dolarOficialCompra").textContent = `$${data.oficial.value_buy}`;
+    document.getElementById("dolarOficialVenta").textContent = `$${data.oficial.value_sell}`;
+    document.getElementById("dolarBlueCompra").textContent = `$${data.blue.value_buy}`;
+    document.getElementById("dolarBlueVenta").textContent = `$${data.blue.value_sell}`;
+  } catch (error) {
+    console.error("❌ Error al obtener cotizaciones:", error);
+    alert("Error al obtener cotización. Revisá la consola.");
+    document.getElementById("cotizacionDolar").innerHTML = "<p>No se pudo cargar la cotización del dólar.</p>";
+  }
+}
+
+// Inicializar al cargar
+document.addEventListener("DOMContentLoaded", () => {
+  mostrarResumen();
+  mostrarCotizacionDolar();
+});

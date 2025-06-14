@@ -2,15 +2,13 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dashboard</title>
-  <link rel="stylesheet" href="styles/styles.css" />
-  <link rel="stylesheet" href="styles/variables.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard - Spotless</title>
+  <link rel="stylesheet" href="styles/styles.css"/>
 </head>
 <body>
-
   <header>
-    <h1>Mi Admin Dashboard</h1>
+    <h1>Panel de Administración</h1>
     <button id="logoutBtn">Cerrar sesión</button>
   </header>
 
@@ -19,51 +17,67 @@
       <a href="clientes.html">Clientes</a>
       <a href="productos.html">Productos</a>
       <a href="ventas.html">Ventas</a>
+      <a href="dashboard.html" style="background-color: #2c3e50;">Dashboard</a>
     </nav>
   </aside>
 
   <main>
-    <section id="totales" class="card">
-      <h2>Resumen general</h2>
-      <p>Ventas del día: $<span id="ventasDia">0</span></p>
-      <p>Productos en stock: <span id="stockDisponible">0</span></p>
-    </section>
+    <div class="dashboard-grid">
 
-    <section id="filtros" class="card">
-      <label for="fechaFiltro">Filtrar ventas por fecha:</label>
-      <input type="date" id="fechaFiltro" />
-    </section>
+      <!-- COTIZACIÓN DÓLAR -->
+      <section id="cotizacionDolar" class="card">
+        <h2>Cotización del Dólar</h2>
+        <div class="dolar-info">
+          <div>
+            <strong>Dólar Oficial:</strong>
+            <p>Compra: <span id="dolarOficialCompra">-</span></p>
+            <p>Venta: <span id="dolarOficialVenta">-</span></p>
+          </div>
+          <div>
+            <strong>Dólar Blue:</strong>
+            <p>Compra: <span id="dolarBlueCompra">-</span></p>
+            <p>Venta: <span id="dolarBlueVenta">-</span></p>
+          </div>
+        </div>
+      </section>
 
-    <section id="ventasPorProducto" class="card">
-      <h2>Ventas por producto</h2>
-      <ul id="listaVentasProducto"></ul>
-    </section>
+      <!-- RESUMEN GENERAL -->
+      <section id="resumenGeneral" class="card">
+        <h2>Totales</h2>
+        <p>Total Clientes: <span id="totalClientes">-</span></p>
+        <p>Total Productos: <span id="totalProductos">-</span></p>
+        <p>Total Ventas: <span id="totalVentas">-</span></p>
+      </section>
 
-    <section id="mejoresClientes" class="card">
-      <h2>Mejores clientes</h2>
-      <ul id="listaClientesTop"></ul>
-    </section>
+      <!-- FILTRO POR FECHA -->
+      <section id="filtroFecha" class="card">
+        <h2>Filtrar Ventas por Fecha</h2>
+        <label for="fechaDesde">Desde:</label>
+        <input type="date" id="fechaDesde" />
 
-    <div class="cards">
-    <section id="totales" class="card">
-      ...
-    </section>
-    <section id="filtros" class="card">
-      ...
-    </section>
-    </div>
+        <label for="fechaHasta">Hasta:</label>
+        <input type="date" id="fechaHasta" />
 
-    <div class="cards">
-        <section id="ventasPorProducto" class="card">
-        ...
-        </section>
-        <section id="mejoresClientes" class="card">
-        ...
-        </section>
+        <button onclick="filtrarPorFecha()">Filtrar</button>
+      </section>
+
+      <!-- VENTAS POR PRODUCTO -->
+      <section id="ventasPorProducto" class="card">
+        <h2>Ventas por Producto</h2>
+        <ul id="listaVentasProducto">
+        </ul>
+      </section>
+
+      <!-- MEJORES CLIENTES -->
+      <section id="mejoresClientes" class="card">
+        <h2>Mejores Clientes</h2>
+        <ul id="listaClientesTop">
+        </ul>
+      </section>
+
     </div>
   </main>
 
   <script type="module" src="js/dashboard.js"></script>
-
 </body>
 </html>
