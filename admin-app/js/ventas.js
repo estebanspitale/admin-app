@@ -2,7 +2,10 @@ import { db } from './firebase-config.js';
 import {
   collection,
   getDocs,
-  addDoc
+  addDoc,
+  deleteDoc,
+  doc,
+  updateDoc
 } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
 
 const clientesCollection = collection(db, 'clientes');
@@ -150,19 +153,116 @@ document.getElementById('registrar-venta').addEventListener('click', async (e) =
 // ---------------------- CARGAR Y MOSTRAR VENTAS ----------------------
 async function cargarVentas() {
   const snapshot = await getDocs(ventasCollection);
-  ventasOriginales = snapshot.docs.map(doc => doc.data());
+  ventasOriginales = snapshot.docs.map(doc => ({
+    id: doc.id,
+    ...doc.data()
+  }));
+  console.log("Ventas cargadas:", ventasOriginales);
   mostrarVentas(ventasOriginales);
 }
 
+
 function mostrarVentas(ventas) {
-  const lista = document.getElementById('ventas-lista');
-  lista.innerHTML = '';
-  ventas.forEach(v => {
-    const item = document.createElement('li');
-    item.textContent = `Cliente: ${v.cliente} | Productos: ${v.productos.map(p => `${p.nombre} x${p.cantidad}`).join(', ')} | Total: $${v.total} | Fecha: ${v.fecha}`;
-    lista.appendChild(item);
+  const tbody = document.getElementById('ventas-lista');
+  tbody.innerHTML = '';
+  ventas.forEach((v, index) => {
+    const cliente = v.cliente || "Sin nombre";
+    const productos = Array.isArray(v.productos)
+      ? v.productos.map(p => `${p.nombre} x${p.cantidad}`).join('<br>')
+      : "Sin productos";
+    const total = v.total ?? 0;
+    const fecha = v.fecha || "Sin fecha";
+
+    const fila = document.createElement('tr');
+    fila.innerHTML = `
+      <td>${cliente}</td>
+      <td>${productos}</td>
+      <td>$${total}</td>
+      <td>${fecha}</td>
+      <td>
+        <button class="btn-editar" onclick="editarVenta(${index})">Editar</button>
+        <button class="btn-eliminar" onclick="eliminarVenta(${index})">Eliminar</button>
+      </td>
+    `;
+    tbody.appendChild(fila);
   });
 }
+
+window.eliminarVenta = async (index) => {
+  const confirmacion = confirm('¿Estás seguro de que querés eliminar esta venta?');
+  if (!confirmacion) return;
+
+  const venta = ventasOriginales[index];
+  const ventaId = venta.id;
+
+  if (!ventaId) {
+    alert('No se puede eliminar esta venta (ID no encontrado).');
+    return;
+  }
+
+  try {
+    await deleteDoc(doc(db, 'ventas', ventaId));
+    alert('Venta eliminada correctamente');
+    await cargarVentas();
+  } catch (error) {
+    console.error('Error al eliminar la venta:', error);
+    alert('Ocurrió un error al eliminar la venta.');
+  }
+};
+
+window.editarVenta = async (index) => {
+  const venta = ventasOriginales[index];
+  const ventaId = venta.id;
+
+  if (!ventaId) {
+    alert('ID de venta no encontrado.');
+    return;
+  }
+
+  // Editar cliente
+  const nuevoCliente = prompt('Editar nombre del cliente:', venta.cliente);
+  if (!nuevoCliente) return;
+
+  // Editar productos
+  const nuevosProductos = [];
+
+  for (let i = 0; i < venta.productos.length; i++) {
+    const producto = venta.productos[i];
+    const nuevaCantidad = prompt(`Cantidad para ${producto.nombre}:`, producto.cantidad);
+
+    if (nuevaCantidad === null) continue; // Cancelado
+
+    const cantidad = parseInt(nuevaCantidad);
+    if (isNaN(cantidad) || cantidad <= 0) continue;
+
+    nuevosProductos.push({
+      ...producto,
+      cantidad
+    });
+  }
+
+  if (nuevosProductos.length === 0) {
+    alert('No se actualizaron productos válidos.');
+    return;
+  }
+
+  const nuevoTotal = nuevosProductos.reduce((sum, p) => sum + (p.precio * p.cantidad), 0);
+
+  try {
+    await updateDoc(doc(db, 'ventas', ventaId), {
+      cliente: nuevoCliente,
+      productos: nuevosProductos,
+      total: nuevoTotal,
+      fecha: new Date().toLocaleDateString()
+    });
+
+    alert('Venta actualizada correctamente.');
+    await cargarVentas();
+  } catch (error) {
+    console.error('Error al editar la venta:', error);
+    alert('Error al editar la venta.');
+  }
+};
 
 // ---------------------- BUSCADOR ----------------------
 document.getElementById('buscador-ventas').addEventListener('input', (e) => {

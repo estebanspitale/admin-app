@@ -1,3 +1,18 @@
+:root {
+  --color-primary: #007bff;
+  --color-secondary: #343a40;
+  --color-bg: #f5f7fa;
+  --color-text: #333;
+  --color-white: #fff;
+
+  --font-family: 'Arial, sans-serif';
+
+  --shadow-light: 0 0 8px rgba(0, 0, 0, 0.1);
+
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 2rem;
+}
 /* ===== DASHBOARD ===== */
 * {
   margin: 0;
@@ -392,4 +407,50 @@ br {
     max-height: 250px;
     font-size: 14px;
   }
+}
+
+#ventas-tabla {
+  background-color: #e4eeff;
+  width: 50%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  margin-left:25%;
+}
+
+#ventas-tabla th,
+#ventas-tabla td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+#ventas-tabla th {
+  background-color: #8a92ff;
+}
+
+#ventas-tabla button {
+  padding: 5px 10px;
+  margin-right: 5px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.btn-editar {
+  background-color: #3498db;
+  color: white;
+}
+
+.btn-editar:hover {
+  background-color: #2980b9;
+}
+
+.btn-eliminar {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.btn-eliminar:hover {
+  background-color: #c0392b;
 }
