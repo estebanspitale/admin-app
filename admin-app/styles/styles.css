@@ -49,7 +49,7 @@ header h1 {
 .titulo-con-icono {
   display: flex;
   align-items: center;
-  gap: 10px; /* espacio entre imagen y texto */
+  gap: 10px;
 }
 
 .titulo-con-icono img {
@@ -112,7 +112,7 @@ header button#logoutBtn:hover {
 
 /* ===== MAIN ===== */
 main {
-  margin-left: 260px; /* espacio para sidebar */
+  margin-left: 260px;
   padding: 20px 40px 40px 40px;
 }
 
@@ -456,8 +456,6 @@ br {
 }
 
 /* ===== LOGIN y REGISTER ===== */
-
-/* Estilo para login y registro */
 
 body.login-body {
   font-family: 'Inter', sans-serif;

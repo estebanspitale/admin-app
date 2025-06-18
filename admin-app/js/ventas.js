@@ -147,7 +147,7 @@ document.getElementById('registrar-venta').addEventListener('click', async (e) =
   nuevoClienteInput.value = '';
   nuevoClienteInput.disabled = false;
 
-  cargarVentas(); // recargar lista
+  cargarVentas();
 });
 
 // ---------------------- CARGAR Y MOSTRAR VENTAS ----------------------
@@ -230,7 +230,7 @@ window.editarVenta = async (index) => {
     const producto = venta.productos[i];
     const nuevaCantidad = prompt(`Cantidad para ${producto.nombre}:`, producto.cantidad);
 
-    if (nuevaCantidad === null) continue; // Cancelado
+    if (nuevaCantidad === null) continue;
 
     const cantidad = parseInt(nuevaCantidad);
     if (isNaN(cantidad) || cantidad <= 0) continue;
