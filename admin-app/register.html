@@ -3,25 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Registro</title>
-  <style>
-    body { font-family: Arial; max-width: 400px; margin: 50px auto; }
-    input, button { display: block; width: 100%; margin-bottom: 10px; padding: 8px; }
-    #error-message { color: red; margin-bottom: 10px; }
-    #success-message { color: green; margin-bottom: 10px; }
-  </style>
+  <title>Registro - Spotless</title>
+  <link rel="stylesheet" href="styles/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 </head>
-<body>
-  <h1>Registro</h1>
+<body class="login-body">
+  <div class="login-container">
+    <h1>Registro</h1>
 
-  <div id="error-message"></div>
-  <div id="success-message"></div>
+    <div id="error-message" class="error-message"></div>
+    <div id="success-message" class="success-message"></div>
 
-  <form id="registerForm">
-    <input type="email" id="email" name="email" placeholder="Email" required />
-    <input type="password" id="password" name="password" placeholder="Contraseña (mín. 6 caracteres)" required minlength="6" />
-    <button type="submit">Registrarse</button>
-  </form>
+    <form id="registerForm">
+      <input type="email" id="email" name="email" placeholder="Email" required />
+      <input type="password" id="password" name="password" placeholder="Contraseña (mín. 6 caracteres)" required minlength="6" />
+      <button type="submit">Registrarse</button>
+    </form>
+
+    <div class="register-link">
+      ¿Ya tenés una cuenta? <a href="login.html">Iniciá sesión</a>
+    </div>
+  </div>
 
   <script type="module" src="js/register.js"></script>
 </body>
